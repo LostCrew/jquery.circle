@@ -6,6 +6,9 @@ module.exports = (grunt) ->
 
   grunt.initConfig
 
+    srcPath: "src"
+    buildPath: "build"
+    filename: "jquery.circle"
     pkg: grunt.file.readJSON "package.json"
 
     coffeelint:
@@ -23,31 +26,27 @@ module.exports = (grunt) ->
           level: "error"
         max_line_length:
           level: "ignore"
-      build: ["Gruntfile.coffee", "src/**/*.coffee"]
+      build: ["Gruntfile.coffee", "<%= srcPath %>/<%= filename %>.coffee"]
 
     coffee:
-      options:
-        bare: true
       build:
         files:
-          "build/jquery.circle.js": "src/jquery.circle.coffee"
+          "<%= buildPath %>/<%= filename %>.js": "<%= srcPath %>/<%= filename %>.coffee"
 
     uglify:
       build:
-        expand: true
-        src: "build/**/*.js"
-        ext: ".min.js"
+        files:
+          "<%= buildPath %>/<%= filename %>.min.js": "<%= buildPath %>/<%= filename %>.js"
 
     less:
       build:
         files:
-          "build/jquery-circle.css": "src/jquery-circle.less"
+          "<%= buildPath %>/<%= filename %>.css": "<%= srcPath %>/<%= filename %>.less"
 
     cssmin:
       build:
-        expand: true
-        src: "build/**/*.css"
-        ext: ".min.css"
+        files:
+          "<%= buildPath %>/<%= filename %>.min.css": "<%= buildPath %>/<%= filename %>.css"
 
     usebanner:
       options:
@@ -73,17 +72,17 @@ module.exports = (grunt) ->
         " */\n"
       css:
         files:
-          src: "build/**/*.css"
+          src: "<%= buildPath %>/**/*.css"
       js:
         files:
-          src: "build/**/*.js"
+          src: "<%= buildPath %>/**/*.js"
 
     jshint:
       all: "*.json"
 
     clean:
-      css: "build/**/*.css"
-      js: "build/**/*.js"
+      css: "<%= buildPath %>/**/*.css"
+      js: "<%= buildPath %>/**/*.js"
 
     connect:
       go:
@@ -102,10 +101,10 @@ module.exports = (grunt) ->
 
     watch:
       coffee:
-        files: "src/**/*.coffee"
+        files: "<%= srcPath %>/**/*.coffee"
         tasks: ["clean:js", "coffeelint", "coffee", "uglify", "usebanner:js"]
       less:
-        files: "src/**/*.less",
+        files: "<%= srcPath %>/**/*.less",
         tasks: ["clean:css", "less", "cssmin", "usebanner:css"]
 
   grunt.registerTask "go", ["build", "connect", "open", "watch"]

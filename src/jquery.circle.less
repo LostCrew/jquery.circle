@@ -1,0 +1,72 @@
+.circle {
+  display: inline-block;
+  position: relative;
+  width: 2em;
+  height: 2em;
+  font-size: 50px;
+  line-height: 2em;
+
+  .value {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2em;
+    height: 2em;
+    text-align: center;
+    z-index: 1;
+  }
+
+  .slice {
+    position: absolute;
+    width: 2em;
+    height: 2em;
+    clip: rect(0, 2em, 2em, 1em);
+
+    .first,
+    .second {
+      position: absolute;
+      width: 2em;
+      height: 2em;
+      border-style: solid;
+      clip: rect(0, 1em, 2em, 0);
+      -moz-border-radius: 1em;
+      -webkit-border-radius: 1em;
+      border-radius: 1em;
+      -webkit-box-sizing: border-box;
+         -moz-box-sizing: border-box;
+              box-sizing: border-box;
+    }
+
+    .second {
+      display: none;
+      -moz-transform: rotate(180deg);
+      -webkit-transform: rotate(180deg);
+      -o-transform: rotate(180deg);
+      transform: rotate(180deg);
+    }
+  }
+
+  &.fifty {
+
+    .slice {
+      clip: auto;
+    }
+
+    .second {
+      display: block;
+    }
+  }
+
+  /*
+  &.fill > .percent {
+    display: none;
+  }
+
+  &.fill > #slice > .pie {
+    border: transparent;
+    background-color: #c0c0c0;
+    width: 1em;
+    height: 1em;
+  }
+  */
+}

@@ -5,17 +5,16 @@
     <title>jQuery Circle</title>
     <meta name="description" content="Circular progress indicators.">
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-    <link rel="stylesheet" href="build/jquery-circle.css">
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="build/jquery.circle.css">
   </head>
   <body>
     <div class="container">
-      <span id="circle" data-value="10"></span>
+      <div id="circle">50</div>
     </div>
-    <script src="docs/vendor/jquery.js"></script>
-    <script src="docs/vendor/bootstrap.min.js"></script>
-    <script src="build/js/bootstrap-switch.min.js"></script>
-    <script src="docs/vendor/prism.js"></script>
-    <script src="docs/index.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="build/jquery.circle.js"></script>
+    <script>
+    $("#circle").circle();
+    </script>
   </body>
 </html>
