@@ -107,5 +107,6 @@ module.exports = (grunt) ->
         files: "<%= srcPath %>/**/*.less",
         tasks: ["clean:css", "less", "cssmin", "usebanner:css"]
 
+  grunt.registerTask "default", ["go"]
   grunt.registerTask "go", ["build", "connect", "open", "watch"]
   grunt.registerTask "build", ["clean", "coffeelint", "coffee", "uglify", "usebanner:js", "less", "cssmin", "usebanner:css"]

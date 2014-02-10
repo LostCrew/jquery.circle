@@ -1,4 +1,6 @@
 (($, window) ->
+  "use strict"
+
   class Circle
     defaults:
       value: 0
@@ -7,24 +9,41 @@
       step: 1
       width: 10
       text: true
-      animate: true
+      animate: 1000
+      duration: false
 
-    constructor: (element, options) ->
-      @options = $.extend {}, @defaults, options
+    constructor: (element, options = {}) ->
       @$element = $ element
-      @$value = $ "<div>", class: "value",
-      @$slice = $ "<div>", class: "slice"
-      @$first = $ "<div>", class: "first"
-      @$second = $ "<div>", class: "second"
+      @options = $.extend {}, @defaults, options,
+        value: @$element.data "value"
+        min: @$element.data "min"
+        max: @$element.data "max"
+        step: @$element.data "step"
+        width: @$element.data "width"
+        text: @$element.data "text"
+        animate: @$element.data "animate"
+        duration: @$element.data "duration"
+      @$value = $ "<div>", class: "circle-value",
+      @$slice = $ "<div>", class: "circle-slice"
+      @$first = $ "<div>", class: "circle-first"
+      @$second = $ "<div>", class: "circle-second"
+
+      # store element content
+      unless @$element.is ":empty"
+        @$element.data "original-text", @$element.html()
+        @$element.empty()
 
       # add main classes
       @$element.addClass "circle"
-      @$element.addClass "fifty" if @_isMoreHalf()
+      @$element.addClass "circle-half" if @_isMoreHalf()
 
-      # set element content as value
-      if not @$element.is ":empty"
-        @options.value = @$element.text()
-        @$element.empty()
+      # add animate
+      if @options.animate
+        @$slice.add(@$first).add(@$second).css
+          "-webkit-transition": "all #{@options.animate}ms"
+          "-moz-transition": "all #{@options.animate}ms"
+          "-o-transition": "all #{@options.animate}ms"
+          "transition": "all #{@options.animate}ms"
 
       # set width and border
       @$first.add(@$second).css @_getSize()
@@ -36,29 +55,37 @@
       @$element.append @$value, @$slice.append @$first, @$second
 
       # set rotate
-      @$first.css @_getTransform()
+      @$first.css @_getTransform @_getFirstDegrees @options.value
+
+      # autoplay
+      @_duration()
       @$element
 
     value: (value) ->
+      return @options.state if typeof value is "undefined"
       return @options.value unless value?
 
-      # TODO: validation
       @options.value = value
-      degrees = @_getDegrees value
-
-      @$element[if @_isMoreHalf() then "addClass" else "removeClass"]("fifty")
-      @$first.css @_getTransform()
+      @$element[if @_isMoreHalf() then "addClass" else "removeClass"] "circle-half"
+      @$first.css @_getTransform @_getFirstDegrees value
       @$value.text value if @options.text
       @$element
 
     destroy: ->
       @$value.remove()
       @$slice.remove()
-      @$element.removeClass "circle fifty"
+      @$element.removeClass "circle circle-half"
 
-    _getTransform: ->
-      degrees = @_getDegrees @options.value
+    _duration: ->
+      return unless @options.duration
 
+      @_timer = window.setInterval =>
+        value = @options.value + @options.step
+
+        if value > @options.min and value < @options.max then @value value else window.clearInterval @_timer
+      , parseInt(@options.animate, 10) or @defaults.animate
+
+    _getTransform: (degrees) ->
       "-webkit-transform": "rotate(#{degrees}deg)"
       "-ms-transform": "rotate(#{degrees}deg)"
       transform: "rotate(#{degrees}deg)"
@@ -66,18 +93,20 @@
     _getSize: ->
       "border-width": "#{@options.width / 100}em"
 
-    _getDegrees: (value) ->
-      360 / 100 * value
+    _getFirstDegrees: (value) ->
+      360 / @options.max * value
 
     _isMoreHalf: ->
       @options.value > @options.max / 2
 
   $.fn.extend circle: (option, args...) ->
+    ret = @
     @each ->
       $this = $(@)
       data = $this.data "circle"
 
       $this.data "circle", data = new Circle @, option if not data
       data[option].apply data, args if data[option]
+    ret
 
-)(window.jQuery, window)
+) window.jQuery, window

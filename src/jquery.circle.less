@@ -1,4 +1,6 @@
-.circle {
+@circle-prefix: circle;
+
+.@{circle-prefix} {
   display: inline-block;
   position: relative;
   width: 2em;
@@ -6,7 +8,7 @@
   font-size: 50px;
   line-height: 2em;
 
-  .value {
+  .@{circle-prefix}-value {
     position: absolute;
     top: 0;
     left: 0;
@@ -16,57 +18,57 @@
     z-index: 1;
   }
 
-  .slice {
+  .@{circle-prefix}-slice {
     position: absolute;
     width: 2em;
     height: 2em;
     clip: rect(0, 2em, 2em, 1em);
-
-    .first,
-    .second {
-      position: absolute;
-      width: 2em;
-      height: 2em;
-      border-style: solid;
-      clip: rect(0, 1em, 2em, 0);
-      -moz-border-radius: 1em;
-      -webkit-border-radius: 1em;
-      border-radius: 1em;
-      -webkit-box-sizing: border-box;
-         -moz-box-sizing: border-box;
-              box-sizing: border-box;
-    }
-
-    .second {
-      display: none;
-      -moz-transform: rotate(180deg);
-      -webkit-transform: rotate(180deg);
-      -o-transform: rotate(180deg);
-      transform: rotate(180deg);
-    }
   }
 
-  &.fifty {
+  .@{circle-prefix}-first,
+  .@{circle-prefix}-second {
+    position: absolute;
+    width: 2em;
+    height: 2em;
+    border-style: solid;
+    clip: rect(0, 1em, 2em, 0);
+    -moz-border-radius: 1em;
+    -webkit-border-radius: 1em;
+    border-radius: 1em;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+  }
 
-    .slice {
+  .@{circle-prefix}-second {
+    display: none;
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+
+  &.@{circle-prefix}-half {
+
+    .@{circle-prefix}-slice {
       clip: auto;
     }
 
-    .second {
+    .@{circle-prefix}-second {
       display: block;
     }
   }
+/*
+  &.@{circle-prefix}-animate {
 
-  /*
-  &.fill > .percent {
-    display: none;
-  }
-
-  &.fill > #slice > .pie {
-    border: transparent;
-    background-color: #c0c0c0;
-    width: 1em;
-    height: 1em;
-  }
-  */
+    .@{circle-prefix}-slice,
+    .@{circle-prefix}-first,
+    .@{circle-prefix} {
+      -webkit-transition: all 1s;
+         -moz-transition: all 1s;
+           -o-transition: all 1s;
+              transition: all 1s;
+    }
+  }*/
 }
+

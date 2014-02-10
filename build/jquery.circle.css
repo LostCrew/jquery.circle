@@ -27,19 +27,19 @@
   font-size: 50px;
   line-height: 2em;
   /*
-  &.fill > .percent {
-    display: none;
-  }
+  &.@{circle-prefix}-animate {
 
-  &.fill > #slice > .pie {
-    border: transparent;
-    background-color: #c0c0c0;
-    width: 1em;
-    height: 1em;
-  }
-  */
+    .@{circle-prefix}-slice,
+    .@{circle-prefix}-first,
+    .@{circle-prefix} {
+      -webkit-transition: all 1s;
+         -moz-transition: all 1s;
+           -o-transition: all 1s;
+              transition: all 1s;
+    }
+  }*/
 }
-.circle .value {
+.circle .circle-value {
   position: absolute;
   top: 0;
   left: 0;
@@ -48,14 +48,14 @@
   text-align: center;
   z-index: 1;
 }
-.circle .slice {
+.circle .circle-slice {
   position: absolute;
   width: 2em;
   height: 2em;
   clip: rect(0, 2em, 2em, 1em);
 }
-.circle .slice .first,
-.circle .slice .second {
+.circle .circle-first,
+.circle .circle-second {
   position: absolute;
   width: 2em;
   height: 2em;
@@ -68,16 +68,16 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.circle .slice .second {
+.circle .circle-second {
   display: none;
   -moz-transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
   -o-transform: rotate(180deg);
   transform: rotate(180deg);
 }
-.circle.fifty .slice {
+.circle.circle-half .circle-slice {
   clip: auto;
 }
-.circle.fifty .second {
+.circle.circle-half .circle-second {
   display: block;
 }

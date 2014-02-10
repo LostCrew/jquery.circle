@@ -23,6 +23,7 @@
   var __slice = [].slice;
 
   (function($, window) {
+    "use strict";
     var Circle;
     Circle = (function() {
       Circle.prototype.defaults = {
@@ -32,49 +33,72 @@
         step: 1,
         width: 10,
         text: true,
-        animate: true
+        animate: 1000,
+        duration: false
       };
 
       function Circle(element, options) {
-        this.options = $.extend({}, this.defaults, options);
+        if (options == null) {
+          options = {};
+        }
         this.$element = $(element);
+        this.options = $.extend({}, this.defaults, options, {
+          value: this.$element.data("value"),
+          min: this.$element.data("min"),
+          max: this.$element.data("max"),
+          step: this.$element.data("step"),
+          width: this.$element.data("width"),
+          text: this.$element.data("text"),
+          animate: this.$element.data("animate"),
+          duration: this.$element.data("duration")
+        });
         this.$value = $("<div>", {
-          "class": "value"
+          "class": "circle-value"
         }, this.$slice = $("<div>", {
-          "class": "slice"
+          "class": "circle-slice"
         }));
         this.$first = $("<div>", {
-          "class": "first"
+          "class": "circle-first"
         });
         this.$second = $("<div>", {
-          "class": "second"
+          "class": "circle-second"
         });
+        if (!this.$element.is(":empty")) {
+          this.$element.data("original-text", this.$element.html());
+          this.$element.empty();
+        }
         this.$element.addClass("circle");
         if (this._isMoreHalf()) {
-          this.$element.addClass("fifty");
+          this.$element.addClass("circle-half");
         }
-        if (!this.$element.is(":empty")) {
-          this.options.value = this.$element.text();
-          this.$element.empty();
+        if (this.options.animate) {
+          this.$slice.add(this.$first).add(this.$second).css({
+            "-webkit-transition": "all " + this.options.animate + "ms",
+            "-moz-transition": "all " + this.options.animate + "ms",
+            "-o-transition": "all " + this.options.animate + "ms",
+            "transition": "all " + this.options.animate + "ms"
+          });
         }
         this.$first.add(this.$second).css(this._getSize());
         if (this.options.text) {
           this.$value.text(this.options.value);
         }
         this.$element.append(this.$value, this.$slice.append(this.$first, this.$second));
-        this.$first.css(this._getTransform());
+        this.$first.css(this._getTransform(this._getFirstDegrees(this.options.value)));
+        this._duration();
         this.$element;
       }
 
       Circle.prototype.value = function(value) {
-        var degrees;
+        if (typeof value === "undefined") {
+          return this.options.state;
+        }
         if (value == null) {
           return this.options.value;
         }
         this.options.value = value;
-        degrees = this._getDegrees(value);
-        this.$element[this._isMoreHalf() ? "addClass" : "removeClass"]("fifty");
-        this.$first.css(this._getTransform());
+        this.$element[this._isMoreHalf() ? "addClass" : "removeClass"]("circle-half");
+        this.$first.css(this._getTransform(this._getFirstDegrees(value)));
         if (this.options.text) {
           this.$value.text(value);
         }
@@ -84,12 +108,26 @@
       Circle.prototype.destroy = function() {
         this.$value.remove();
         this.$slice.remove();
-        return this.$element.removeClass("circle fifty");
+        return this.$element.removeClass("circle circle-half");
       };
 
-      Circle.prototype._getTransform = function() {
-        var degrees;
-        degrees = this._getDegrees(this.options.value);
+      Circle.prototype._duration = function() {
+        var _this = this;
+        if (!this.options.duration) {
+          return;
+        }
+        return this._timer = window.setInterval(function() {
+          var value;
+          value = _this.options.value + _this.options.step;
+          if (value > _this.options.min && value < _this.options.max) {
+            return _this.value(value);
+          } else {
+            return window.clearInterval(_this._timer);
+          }
+        }, parseInt(this.options.animate, 10) || this.defaults.animate);
+      };
+
+      Circle.prototype._getTransform = function(degrees) {
         return {
           "-webkit-transform": "rotate(" + degrees + "deg)",
           "-ms-transform": "rotate(" + degrees + "deg)",
@@ -103,8 +141,8 @@
         };
       };
 
-      Circle.prototype._getDegrees = function(value) {
-        return 360 / 100 * value;
+      Circle.prototype._getFirstDegrees = function(value) {
+        return 360 / this.options.max * value;
       };
 
       Circle.prototype._isMoreHalf = function() {
@@ -116,9 +154,10 @@
     })();
     return $.fn.extend({
       circle: function() {
-        var args, option;
+        var args, option, ret;
         option = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
-        return this.each(function() {
+        ret = this;
+        this.each(function() {
           var $this, data;
           $this = $(this);
           data = $this.data("circle");
@@ -129,6 +168,7 @@
             return data[option].apply(data, args);
           }
         });
+        return ret;
       }
     });
   })(window.jQuery, window);
