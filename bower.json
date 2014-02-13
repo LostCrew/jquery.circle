@@ -1,0 +1,29 @@
+{
+  "name": "jquery.circle",
+  "version": "0.1.0",
+  "homepage": "https://github.com/LostCrew/jquery.circle",
+  "authors": [
+    "Emanuele Marchi <emanuele@lostcrew.it>"
+  ],
+  "description": "Circular progress indicators.",
+  "main": "build/jquery.circle.js",
+  "keywords": [
+    "jquery",
+    "progress",
+    "circular",
+    "indicator",
+    "graph",
+    "dial"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": ">=1.9.0"
+  }
+}

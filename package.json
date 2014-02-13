@@ -1,6 +1,6 @@
 {
-  "name": "jquery-circle",
-  "version": "0.0.1",
+  "name": "jquery.circle",
+  "version": "0.1.0",
   "description": "Circular progress indicators.",
   "main": "build/jquery.circle.js",
   "repository": {
@@ -16,9 +16,18 @@
     "dial"
   ],
   "author": "Emanuele Marchi",
+  "contributors": {
+    "name": "Emanuele Marchi",
+    "email": "emanuele@lostcrew.it",
+    "url": "http://lostcrew.it"
+  },
   "license": "MIT",
   "readmeFilename": "README.md",
   "gitHead": "a3b641cfa061e097fe97f4a6d8b6be3058132a87",
+  "bugs": {
+    "url": "https://github.com/LostCrew/jquery.circle/issues"
+  },
+  "homepage": "https://github.com/LostCrew/jquery.circle",
   "devDependencies": {
     "matchdep": "~0.3.0",
     "grunt": "~0.4.2",
@@ -34,5 +43,8 @@
     "grunt-open": "~0.2.2",
     "grunt-banner": "~0.2.0",
     "grunt-bump": "0.0.13"
+  },
+  "dependencies": {
+    "jquery": ">=1.9.0"
   }
 }
