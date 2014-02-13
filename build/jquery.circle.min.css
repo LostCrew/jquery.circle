@@ -1,22 +1,7 @@
-/* ========================================================================
- * jquery-circle - v0.0.1
- * 
- * ========================================================================
- * Copyright 2012-2013 
- *
- * ========================================================================
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * ========================================================================
+/**
+ * jquery.circle - Circular progress indicators.
+ * @version v0.1.0
+ * @link https://github.com/LostCrew/jquery.circle
+ * @license MIT
  */
-
 .circle{display:inline-block;position:relative;width:2em;height:2em;font-size:50px;line-height:2em}.circle .circle-value{position:absolute;top:0;left:0;width:2em;height:2em;text-align:center;z-index:1}.circle .circle-slice{position:absolute;width:2em;height:2em;clip:rect(0,2em,2em,1em)}.circle .circle-first,.circle .circle-second{position:absolute;width:2em;height:2em;border-style:solid;clip:rect(0,1em,2em,0);-moz-border-radius:1em;-webkit-border-radius:1em;border-radius:1em;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.circle .circle-second{display:none;-moz-transform:rotate(180deg);-webkit-transform:rotate(180deg);-o-transform:rotate(180deg);transform:rotate(180deg)}.circle.circle-half .circle-slice{clip:auto}.circle.circle-half .circle-second{display:block}

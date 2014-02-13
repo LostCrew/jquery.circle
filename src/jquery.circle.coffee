@@ -79,11 +79,11 @@
     _duration: ->
       return unless @options.duration
 
-      @_timer = window.setInterval =>
+      @_timer = window.setInterval( =>
         value = @options.value + @options.step
 
         if value > @options.min and value < @options.max then @value value else window.clearInterval @_timer
-      , parseInt(@options.animate, 10) or @defaults.animate
+      , parseInt(@options.animate, 10) or @defaults.animate)
 
     _getTransform: (degrees) ->
       "-webkit-transform": "rotate(#{degrees}deg)"
