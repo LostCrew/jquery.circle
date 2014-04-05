@@ -6,7 +6,7 @@
     "Emanuele Marchi <emanuele@lostcrew.it>"
   ],
   "description": "Circular progress indicators.",
-  "main": "build/jquery.circle.js",
+  "main": "dist/jquery.circle.js",
   "keywords": [
     "jquery",
     "progress",

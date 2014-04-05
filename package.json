@@ -2,7 +2,7 @@
   "name": "jquery.circle",
   "version": "0.1.0",
   "description": "Circular progress indicators.",
-  "main": "build/jquery.circle.js",
+  "main": "dist/jquery.circle.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/LostCrew/jquery.circle.git"

@@ -62,13 +62,21 @@
       @$element
 
     value: (value) ->
-      return @options.state if typeof value is "undefined"
+      return @options.value if typeof value is "undefined"
       return @options.value unless value?
 
       @options.value = value
       @$element[if @_isMoreHalf() then "addClass" else "removeClass"] "circle-half"
       @$first.css @_getTransform @_getFirstDegrees value
       @$value.text value if @options.text
+      @$element
+
+    width: (value) ->
+      return @options.width if typeof value is "undefined"
+      return @options.width unless value?
+
+      @options.width = width
+      @$first.add(@$second).css @_getSize()
       @$element
 
     destroy: ->

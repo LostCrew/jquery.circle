@@ -27,33 +27,35 @@ gulp.task('coffee', function() {
     }))
     .pipe(coffee()).on('error', gutil.log)
     .pipe(header(banner, { pkg: pkg }))
-    .pipe(gulp.dest('build'))
+    .pipe(gulp.dest('dist'))
     .pipe(rename({ suffix: '.min' }))
     .pipe(uglify())
     .pipe(header(banner, { pkg: pkg }))
-    .pipe(gulp.dest('build'));
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('less', function() {
   gulp.src('src/' + name + '.less')
     .pipe(less())
     .pipe(header(banner, { pkg: pkg }))
-    .pipe(gulp.dest('build'))
+    .pipe(gulp.dest('dist'))
     .pipe(rename({ suffix: '.min' }))
     .pipe(less({
       compress: true,
+
       cleancss: true
     }))
     .pipe(header(banner, { pkg: pkg }))
-    .pipe(gulp.dest('build'));
+    .pipe(gulp.dest('dist'));
 });
 
-gulp.task('clean', function() {
-  gulp.src('build', { read: false })
-    .pipe(clean());
+gulp.task('clean', function(done) {
+  gulp.src('dist', { read: false })
+    .pipe(clean())
+    .on('end', done);
 });
 
-gulp.task("open", function(){
+gulp.task("open", function() {
   gulp.src("index.html")
     .pipe(open());
 });
@@ -63,5 +65,5 @@ gulp.task('watch', function () {
   gulp.watch('src/' + name + '.less', ['less']);
 });
 
-gulp.task('default', ['clean', 'coffee', 'less', 'open', 'watch'], function() {
-});
+gulp.task('dist', ['clean', 'coffee', 'less']);
+gulp.task('default', ['dist', 'open', 'watch']);

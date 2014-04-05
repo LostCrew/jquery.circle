@@ -76,7 +76,7 @@
 
       Circle.prototype.value = function(value) {
         if (typeof value === "undefined") {
-          return this.options.state;
+          return this.options.value;
         }
         if (value == null) {
           return this.options.value;
@@ -87,6 +87,18 @@
         if (this.options.text) {
           this.$value.text(value);
         }
+        return this.$element;
+      };
+
+      Circle.prototype.width = function(value) {
+        if (typeof value === "undefined") {
+          return this.options.width;
+        }
+        if (value == null) {
+          return this.options.width;
+        }
+        this.options.width = width;
+        this.$first.add(this.$second).css(this._getSize());
         return this.$element;
       };
 
