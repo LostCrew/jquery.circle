@@ -29,7 +29,6 @@
   },
   "homepage": "https://github.com/LostCrew/jquery.circle",
   "devDependencies": {
-    "grunt-contrib-jshint": "~0.8.0",
     "gulp-rename": "~1.0.0",
     "gulp-clean": "~0.2.4",
     "gulp-coffee": "~1.4.1",
@@ -39,8 +38,7 @@
     "gulp-coffeelint": "~0.2.2",
     "gulp-less": "~1.2.3",
     "gulp-header": "~1.0.2",
-    "gulp-open": "~0.2.8",
-    "grunt": "~0.4.4"
+    "gulp-open": "~0.2.8"
   },
   "dependencies": {
     "jquery": ">=1.9.0"
